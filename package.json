@@ -1,0 +1,25 @@
+{
+  "name": "leverage",
+  "version": "1.0.0",
+  "repository": "git@github.com:kylewhitaker/leverage.git",
+  "author": "Kyle Whitaker <kylewhitaker51@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server",
+    "e2e"
+  ],
+  "scripts": {
+    "start": "concurrently --kill-others-on-fail \"yarn start:client\" \"yarn start:server\"",
+    "start:client": "yarn workspace client start",
+    "start:server": "yarn workspace server start",
+    "test": "concurrently \"yarn test:e2e\" \"yarn test:client\" \"yarn test:server\"",
+    "test:e2e": "yarn workspace e2e test",
+    "test:client": "yarn workspace client test",
+    "test:server": "yarn workspace server test"
+  },
+  "devDependencies": {
+    "concurrently": "^7.2.1"
+  }
+}
