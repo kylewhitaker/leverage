@@ -1,0 +1,17 @@
+{
+  "name": "e2e",
+  "version": "1.0.0",
+  "description": "End-to-end testing utilities",
+  "private": true,
+  "scripts": {
+    "test": "cypress open",
+    "test:ci": "cypress run"
+  },
+  "devDependencies": {
+    "@cypress/webpack-preprocessor": "^5.10.0",
+    "cypress": "^9.0.0",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.4.4",
+    "webpack": "^5.64.1"
+  }
+}
