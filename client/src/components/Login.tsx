@@ -2,20 +2,18 @@ import { Button, Grid, Typography } from '@mui/material';
 import { Auth } from 'aws-amplify';
 import { useSnackbar } from 'notistack';
 import { useCallback, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
-import { RootState } from '../redux/store';
+import { useDispatch } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 import { setUser } from '../redux/userSlice';
 import { InputText } from './InputText';
 
 interface Props {}
 
-export const SignUp: React.FC<Props> = (props) => {
-  const user = useSelector((state: RootState) => state.user.value);
+export const Login: React.FC<Props> = (props) => {
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
-  const [state, setState] = useState<{ name: string; email: string; password: string }>({
-    name: '',
+  const history = useHistory();
+  const [state, setState] = useState<{ email: string; password: string }>({
     email: '',
     password: '',
   });
@@ -23,40 +21,34 @@ export const SignUp: React.FC<Props> = (props) => {
   const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = useCallback(
     async (event) => {
       try {
-        const signUpResult = await Auth.signUp({
+        const signInResult = await Auth.signIn({
           username: state.email,
           password: state.password,
-          attributes: {
-            name: state.name,
-          },
         });
-        console.log(signUpResult);
-        dispatch(setUser({ name: state.name, email: state.email }));
-        enqueueSnackbar(`Account created succesfully!`, { variant: 'success' });
+        dispatch(
+          setUser({
+            id: signInResult.username,
+            name: signInResult.attributes.name,
+            email: signInResult.attributes.email,
+          })
+        );
+        history.push('/contacts');
       } catch (error) {
-        enqueueSnackbar(`Account creation failed. ${error}`, { variant: 'error' });
+        if (JSON.stringify(error).includes('UserNotConfirmedException')) {
+          enqueueSnackbar(`Account login failed. Please verify your email.`, { variant: 'info' });
+        } else {
+          enqueueSnackbar(`Account login failed. ${error}`, { variant: 'error' });
+        }
       }
     },
-    [state, enqueueSnackbar, dispatch]
+    [state, enqueueSnackbar, dispatch, history]
   );
-
-  if (!!user) return <Redirect to="/verify" />;
 
   return (
     <Grid container direction="column" spacing={2}>
       <Grid item>
         <InputText
-          id="signup-name"
-          label="Name"
-          type="text"
-          variant="filled"
-          onChange={(event) => setState((prev) => ({ ...prev, name: event.target.value }))}
-          fullWidth
-        />
-      </Grid>
-      <Grid item>
-        <InputText
-          id="signup-email"
+          id="login-email"
           label="Email"
           type="email"
           variant="filled"
@@ -66,7 +58,7 @@ export const SignUp: React.FC<Props> = (props) => {
       </Grid>
       <Grid item>
         <InputText
-          id="signup-password"
+          id="login-password"
           label="Password"
           type="password"
           variant="filled"
@@ -76,19 +68,19 @@ export const SignUp: React.FC<Props> = (props) => {
       </Grid>
       <Grid item container alignItems="baseline">
         <Button
-          id="signup-button"
+          id="login-button"
           type="submit"
-          color="secondary"
+          color="primary"
           variant="contained"
           size="large"
           style={{ marginTop: 11 }}
           onClick={handleSubmit}
         >
-          Create Account
+          Sign in
         </Button>
-        <Link to="/login">
+        <Link to="/">
           <Typography variant="body1" style={{ color: '#fff', marginLeft: 12 }}>
-            I already have an account.
+            I don't have an account yet.
           </Typography>
         </Link>
       </Grid>
