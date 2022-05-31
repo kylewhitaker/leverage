@@ -51,6 +51,7 @@ export const Verify: React.FC<Props> = (props) => {
           </Grid>
           <Grid item marginTop={2}>
             <Button
+              id="verify-resend-button"
               variant="contained"
               size="large"
               color="secondary"
@@ -60,6 +61,7 @@ export const Verify: React.FC<Props> = (props) => {
               Resend
             </Button>
             <Button
+              id="verify-done-button"
               variant="contained"
               size="large"
               color="primary"
