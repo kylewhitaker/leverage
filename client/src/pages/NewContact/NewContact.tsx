@@ -30,7 +30,7 @@ export const NewContact: React.FC<Props> = (props) => {
     <>
       <Box display="flex" alignItems="center">
         <Typography variant="h4" style={{ margin: '2rem' }}>
-          Hello {user?.name || 'there'}!
+          👋 {user?.name || 'there'}!
         </Typography>
         <Button id="button-add-new-contact" variant="contained" color="primary" disabled>
           Add new contact

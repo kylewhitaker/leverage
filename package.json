@@ -14,7 +14,7 @@
     "start": "concurrently --kill-others-on-fail \"yarn start:client\" \"yarn start:server\"",
     "start:client": "yarn workspace client start",
     "start:server": "yarn workspace server start",
-    "test": "concurrently \"yarn test:e2e\" \"yarn test:client\" \"yarn test:server\"",
+    "test": "yarn test:e2e",
     "test:e2e": "yarn workspace e2e test",
     "test:client": "yarn workspace client test",
     "test:server": "yarn workspace server test"
