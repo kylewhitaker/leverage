@@ -3,7 +3,7 @@ import { Auth } from 'aws-amplify';
 import { useSnackbar } from 'notistack';
 import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { RootState } from '../../redux/store';
 import './Verify.css';
 
@@ -27,8 +27,6 @@ export const Verify: React.FC<Props> = (props) => {
     }
   }, [enqueueSnackbar, user]);
 
-  if (!user) return <Redirect to="/" />;
-
   return (
     <Box className="bg-img">
       <Grid container height="100vh" p={2}>
@@ -41,7 +39,8 @@ export const Verify: React.FC<Props> = (props) => {
           </Grid>
           <Grid item>
             <Typography variant="h5" className="subtitle">
-              Welcome <span style={{ fontWeight: 600, textShadow: '0 0 2px blue' }}>{user?.name}</span>!
+              Welcome <span style={{ fontWeight: 600, textShadow: '0 0 2px blue' }}>{user?.name || 'to rolladex'}</span>
+              !
             </Typography>
           </Grid>
           <Grid item>

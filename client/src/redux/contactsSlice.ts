@@ -13,6 +13,9 @@ export const contactsSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
+    addContact: (state, action: PayloadAction<Contact>) => {
+      state.value.push(action.payload);
+    },
     getContacts: (state) => state,
     contactsSuccess: (state, action: PayloadAction<Contact[]>) => {
       state.value = action.payload;
@@ -20,6 +23,6 @@ export const contactsSlice = createSlice({
   },
 });
 
-export const { getContacts, contactsSuccess } = contactsSlice.actions;
+export const { addContact, getContacts, contactsSuccess } = contactsSlice.actions;
 
 export default contactsSlice.reducer;

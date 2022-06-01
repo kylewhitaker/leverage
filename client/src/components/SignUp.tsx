@@ -23,14 +23,13 @@ export const SignUp: React.FC<Props> = (props) => {
   const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = useCallback(
     async (event) => {
       try {
-        const signUpResult = await Auth.signUp({
+        await Auth.signUp({
           username: state.email,
           password: state.password,
           attributes: {
             name: state.name,
           },
         });
-        console.log(signUpResult);
         dispatch(setUser({ name: state.name, email: state.email }));
         enqueueSnackbar(`Account created succesfully!`, { variant: 'success' });
       } catch (error) {
@@ -40,7 +39,7 @@ export const SignUp: React.FC<Props> = (props) => {
     [state, enqueueSnackbar, dispatch]
   );
 
-  if (!!user) return <Redirect to="/verify" />;
+  // if (!!user) return <Redirect to="/verify" />;
 
   return (
     <Grid container direction="column" spacing={2}>

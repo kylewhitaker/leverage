@@ -11,11 +11,17 @@ export class ContactsService {
     private contactsRepository: Repository<Contact>
   ) {}
 
-  create(contactDto: ContactDto): Promise<Contact> {
-    return this.contactsRepository.save(contactDto);
+  create(userId: string, contactDto: ContactDto): Promise<Contact> {
+    return this.contactsRepository.save({ userId, ...contactDto });
   }
 
-  findAll(): Promise<Contact[]> {
-    return this.contactsRepository.find();
+  findAll(userId: string): Promise<Contact[]> {
+    return this.contactsRepository.find({
+      where: { userId },
+    });
+  }
+
+  delete(userId: string, id: string): Promise<any> {
+    return this.contactsRepository.delete({ userId, id });
   }
 }

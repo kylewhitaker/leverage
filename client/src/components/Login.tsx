@@ -34,8 +34,11 @@ export const Login: React.FC<Props> = (props) => {
         );
         history.push('/contacts');
       } catch (error) {
+        console.log(JSON.stringify(error));
         if (JSON.stringify(error).includes('UserNotConfirmedException')) {
           enqueueSnackbar(`Account login failed. Please verify your email.`, { variant: 'info' });
+          dispatch(setUser({ name: '', email: state.email }));
+          history.push('/verify');
         } else {
           enqueueSnackbar(`Account login failed. ${error}`, { variant: 'error' });
         }
