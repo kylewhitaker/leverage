@@ -2,16 +2,14 @@ import { Button, Grid, Typography } from '@mui/material';
 import { Auth } from 'aws-amplify';
 import { useSnackbar } from 'notistack';
 import { useCallback, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
-import { RootState } from '../redux/store';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { setUser } from '../redux/userSlice';
 import { InputText } from './InputText';
 
 interface Props {}
 
 export const SignUp: React.FC<Props> = (props) => {
-  const user = useSelector((state: RootState) => state.user.value);
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   const [state, setState] = useState<{ name: string; email: string; password: string }>({
