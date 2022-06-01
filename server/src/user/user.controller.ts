@@ -1,4 +1,5 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { ApiKeyGuard } from 'src/core/apiKey.guard';
 import { UserDto } from './user.dto';
 import { User } from './user.entity';
 import { UserService } from './user.service';
@@ -18,6 +19,7 @@ export class UserController {
   }
 
   @Post('verifyEmail')
+  @UseGuards(ApiKeyGuard)
   verifyEmail(@Body() userDto: UserDto): Promise<boolean> {
     return this.userService.verifyEmail(userDto);
   }

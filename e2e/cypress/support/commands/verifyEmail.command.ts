@@ -1,5 +1,10 @@
 function verifyEmail(email: string): Cypress.Chainable<any> {
-  return cy.request('POST', `${Cypress.env('API_URL')}/user/verifyEmail`, { email });
+  return cy.request({
+    method: 'POST',
+    url: `${Cypress.env('API_URL')}/user/verifyEmail`,
+    body: { email },
+    headers: { authorization: Cypress.env('API_KEY') },
+  });
 }
 
 Cypress.Commands.add('verifyEmail', verifyEmail);
