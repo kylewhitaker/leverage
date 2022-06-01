@@ -12,6 +12,11 @@ export abstract class ApiService {
     axios
       .get<Contact[]>(`${process.env.REACT_APP_API_URL}/contacts`, await setConfig())
       .then((response) => response.data);
+
+  static deleteContact = async (id: string) =>
+    axios
+      .delete<Contact>(`${process.env.REACT_APP_API_URL}/contacts/${id}`, await setConfig())
+      .then((response) => response.data);
 }
 
 async function setConfig() {

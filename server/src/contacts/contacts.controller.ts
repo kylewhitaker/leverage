@@ -25,7 +25,7 @@ export class ContactsController {
 
   @Delete(':id')
   @UseGuards(AuthGuard)
-  delete(@Headers('authorization') token: string, @Param() id: string): Promise<Contact> {
+  delete(@Headers('authorization') token: string, @Param('id') id: string): Promise<Contact> {
     const userId = mapTokenToUserId(token);
     return this.contactsService.delete(userId, id);
   }

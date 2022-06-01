@@ -1,3 +1,4 @@
+import { Add } from '@mui/icons-material';
 import { Box, Button, Typography } from '@mui/material';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,9 +27,15 @@ export const Contacts: React.FC<Props> = (props) => {
     <>
       <Box display="flex" alignItems="center">
         <Typography variant="h4" style={{ margin: '2rem' }}>
-          Hello {user?.name || 'there'}!
+          👋 {user?.name || 'there'}!
         </Typography>
-        <Button id="button-add-new-contact" variant="contained" color="primary" onClick={onAddNewContact}>
+        <Button
+          id="button-add-new-contact"
+          variant="contained"
+          color="primary"
+          onClick={onAddNewContact}
+          startIcon={<Add />}
+        >
           Add new contact
         </Button>
       </Box>
